@@ -22,6 +22,8 @@
   <title>Page Title less than 55 characters. Это примерно столько</title>
   <meta name="description" content="Мое описание для SEO">
   <link rel="canonical" href="index.html">
+
+  <script src='js/checkbrowser.js'></script>
 </head>
 
 <body>
@@ -30,87 +32,282 @@
     <div class="courser"></div>
   </div>
 
+  <header class="header">
+    <div class="container">
+      <div class="header__wrapper">
+        <button class="header__button">
+          <span class="header__img">
+            <img src="img/logo-q-play.svg" alt="logo">
+          </span>
+          <span class="header__burger">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+        <button class="header__call btn-icon btn-icon--phone">
+          <img src="img/phone-incoming.svg" alt="phone-incoming">
+        </button>
+      </div>
+      <div class="header__menu"></div>
+    </div>
+  </header>
+
   <div class="container">
-    <h1 class="h1"><mark>более 150</mark></h1>
-    <h2 class="h2">Портфолио</h2>
-    <h3 class="h3">Минидом</h3>
-    <h4 class="h4">Фирменный стиль</h4>
-    <p>Не&nbsp;знаешь с&nbsp;чего начать? Наша команда поможет тебе. Мы&nbsp;небольшая студия, стабильно создающая хороший дизайн.</p>
-
-    <a href="#" class="btn btn--full">Ок</a>
-    <a href="#" class="btn btn--line btn--big-min-width">Ок</a>
-    <input class="btn btn--full" type="submit" value="Заполнить бриф">
-    <input class="btn btn--line" type="submit" value="Заполнить бриф">
-    <button class="btn btn--full">Заполнить бриф</button>
-    <button class="btn btn--line">Заполнить бриф</button>
-    <br>
-    <form action="/" method="get">
-      <div class="">
-        <label class="radio-input__label radio-input__label--line" for="radio-1">
-          <input class="radio-input" type="radio" name="age" id="radio-1">
-          <span>менее 1 года</span>
-        </label>
-        <label class="radio-input__label radio-input__label--line" for="radio-2">
-          <input class="radio-input" type="radio" name="age" id="radio-2">
-          <span>от&nbsp;1 до&nbsp;5 лет</span>
-        </label>
-        <label class="radio-input__label radio-input__label--line" for="radio-3">
-          <input class="radio-input" type="radio" name="age" id="radio-3">
-          <span>5-10 лет</span>
-        </label>
-        <label class="radio-input__label radio-input__label--line" for="radio-4">
-          <input class="radio-input" type="radio" name="age" id="radio-4">
-          <span>более 10 лет</span>
-        </label>
+    <form action="send-brif.php" method="POST" class="slides-form slides-form--one-btn">
+      <div class="slides-form__inner">
+        <div class="slides-form__outer">
+          <div class="slides-form__slide text-center-content slides-form__slide--not-progress">
+            <h1 class="h2">БРИФ НА&nbsp;СОЗДАНИЕ ЛОГО</h1>
+            <p>Бриф и&nbsp;референсы (примеры работ для вдохновения)&nbsp;&mdash; являются ключом к&nbsp;правильной постановке задачи. Поэтому, предлагаем заполнить бриф максимально развёрнуто, ответив на&nbsp;поставленные вопросы. </p>
+            <button class="btn btn--line btn--big-min-width slides-form__next">Начать</button>
+          </div>
+          <div class="slides-form__slide">
+            <h1 class="h2">О&nbsp;КОМПАНИИ</h1>
+            <div class="slides-form__proggress">
+              <div class="slides-form__proggress__line">
+                <div class="slides-form__proggress__bar"></div>
+              </div>
+              <div class="slides-form__proggress__text"></div>
+            </div>
+            <label class="label h4 text-accent" for="name-logo">Название, которое должно быть отражено в&nbsp;логотипе:</label>
+            <div class="input textarea--auto-height">
+              <textarea id="name-logo" name="name-logo" placeholder="К примеру, Adidas. При создании более одной версии логотипа (несколько разноязычных версий) необходимо указать написания для всех версий, с учетом регистра и пробелов."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="why-is-name">Что означает ваше название?</label>
+            <div class="input textarea--auto-height">
+              <textarea id="why-is-name" name="why-is-name" placeholder="Название Adidas построено из имени и фамилии владельца - Адольфа Дасслера, Изначально, был бренд Dassler, им владело два брата, но к сожалению они поссорились и запретили друг другу использовать семейный бренд. Поэтому, родилось два новых Adidas и Puma."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="description-prod">Описание продукта или услуги и&nbsp;преимущества</label>
+            <div class="input textarea--auto-height">
+              <textarea id="description-prod" name="description-prod" placeholder="Укажите ваш основной ряд продуктов или услуг. К примеру: спортивная одежда и обувь. Масштабное производство, более 10000 магазинов, мы занимаемся розничной, оптовой продажей, а так же создаем спортивные вещи на заказ. Следуем и создаем тренды."></textarea>
+            </div>
+            <div class="label h4 text-accent">Как давно ваш проект существует?</div>
+            <label for="age-company-1" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-1" name="age-company" value="0">
+              <span>менее 1 года</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-2" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-2" name="age-company" value="1">
+              <span>от&nbsp;1 до&nbsp;5 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-3" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-3" name="age-company" value="2">
+              <span>5&nbsp;&mdash; 10 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-4" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-4" name="age-company" value="3">
+              <span>более 10 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label class="label h4 text-accent" for="description-prod">Где территориально действует ваш проект?</label>
+            <div class="input textarea--auto-height">
+              <textarea id="description-prod" name="description-prod" placeholder="Локально, Только в вашем регионе, на всю Россию, на весь мир, Китайский рынок и т.д."></textarea>
+            </div>
+            <div class="text-center slides-form__btns">
+              <button class="btn btn--line btn--big-min-width slides-form__next">Далее</button>
+            </div>
+          </div>
+          <div class="slides-form__slide">
+            <h1 class="h2">О&nbsp;БРЕНДЕ</h1>
+            <div class="slides-form__proggress">
+              <div class="slides-form__proggress__line">
+                <div class="slides-form__proggress__bar"></div>
+              </div>
+              <div class="slides-form__proggress__text"></div>
+            </div>
+            <label class="label h4 text-accent" for="name-logo">Название, которое должно быть отражено в&nbsp;логотипе:</label>
+            <div class="input textarea--auto-height">
+              <textarea id="name-logo" name="name-logo" placeholder="К примеру, Adidas. При создании более одной версии логотипа (несколько разноязычных версий) необходимо указать написания для всех версий, с учетом регистра и пробелов."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="why-is-name">Что означает ваше название?</label>
+            <div class="input textarea--auto-height">
+              <textarea id="why-is-name" name="why-is-name" placeholder="Название Adidas построено из имени и фамилии владельца - Адольфа Дасслера, Изначально, был бренд Dassler, им владело два брата, но к сожалению они поссорились и запретили друг другу использовать семейный бренд. Поэтому, родилось два новых Adidas и Puma."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="description-prod">Описание продукта или услуги и&nbsp;преимущества</label>
+            <div class="input textarea--auto-height">
+              <textarea id="description-prod" name="description-prod" placeholder="Укажите ваш основной ряд продуктов или услуг. К примеру: спортивная одежда и обувь. Масштабное производство, более 10000 магазинов, мы занимаемся розничной, оптовой продажей, а так же создаем спортивные вещи на заказ. Следуем и создаем тренды."></textarea>
+            </div>
+            <div class="label h4 text-accent">Как давно ваш проект существует?</div>
+            <label for="age-company-1" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-1" name="age-company" value="0">
+              <span>менее 1 года</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-2" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-2" name="age-company" value="1">
+              <span>от&nbsp;1 до&nbsp;5 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-3" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-3" name="age-company" value="2">
+              <span>5&nbsp;&mdash; 10 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label for="age-company-4" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-4" name="age-company" value="3">
+              <span>более 10 лет</span>
+              <div class="radio-input__check"></div>
+            </label>
+            <label class="label h4 text-accent" for="description-prod">Где территориально действует ваш проект?</label>
+            <div class="input textarea--auto-height">
+              <textarea id="description-prod" name="description-prod" placeholder="Локально, Только в вашем регионе, на всю Россию, на весь мир, Китайский рынок и т.д."></textarea>
+            </div>
+            <div class="text-center slides-form__btns">
+              <button class="btn btn--line btn--big-min-width slides-form__next">Далее</button>
+            </div>
+          </div>
+          <div class="slides-form__slide">
+            <h1 class="h2">О&nbsp;Графике</h1>
+            <div class="slides-form__proggress">
+              <div class="slides-form__proggress__line">
+                <div class="slides-form__proggress__bar"></div>
+              </div>
+              <div class="slides-form__proggress__text"></div>
+            </div>
+            <div class="label h4 text-accent">Представьте, что логотип музыкальное произведение, к&nbsp;какому жанру вы&nbsp;его отнесете?</div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="classic-1" class="radio-input__label">
+                  <input type="radio" class="radio-input" id="classic-1" name="classic" value="0">
+                  <span>менее 1 года</span>
+                  <div class="radio-input__check"></div>
+                  <div class="radio-input__content">
+                    <img src="img/classic.jpg" alt="классика">
+                  </div>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label for="classic-2" class="radio-input__label">
+                  <input type="radio" class="radio-input" id="classic-2" name="classic" value="1">
+                  <span>менее 1 года</span>
+                  <div class="radio-input__check"></div>
+                  <div class="radio-input__content">
+                    <img src="img/classic.jpg" alt="классика">
+                  </div>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label for="age-company-1" class="radio-input__label">
+                  <input type="radio" class="radio-input" id="age-company-1" name="age-company" value="0">
+                  <span>менее 1 года</span>
+                  <div class="radio-input__check"></div>
+                  <div class="radio-input__content">
+                    <img src="img/classic.jpg" alt="классика">
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="label h4 text-accent">Какой СТИЛЬ/МЕТОД ГРАФИЧЕСКОГО РЕШЕНИЯ логотипа, на&nbsp;ваш взгляд, предпочтителен для создания желаемого образа бренда? <br> ВЫБЕРИТЕ НЕ&nbsp;БОЛЕЕ 3.</div>
+            <label for="age-company-1" class="radio-input__label">
+              <input type="radio" class="radio-input" id="age-company-1" name="age-company" value="0">
+              <span>менее 1 года</span>
+              <div class="radio-input__check"></div>
+              <div class="radio-input__content">
+                <div class="row text-center">
+                  <div class="col-sm-6 col-lg-3">
+                    <img src="img/ex-logo.jpg" alt="logo">
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <img src="img/ex-logo.jpg" alt="logo">
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <img src="img/ex-logo.jpg" alt="logo">
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <img src="img/ex-logo.jpg" alt="logo">
+                  </div>
+                </div>
+              </div>
+            </label>
+            <div class="text-center slides-form__btns">
+              <button class="btn btn--line btn--big-min-width slides-form__next">Далее</button>
+            </div>
+          </div>
+          <div class="slides-form__slide">
+            <h1 class="h2">КОНТАКТная информация</h1>
+            <div class="slides-form__proggress">
+              <div class="slides-form__proggress__line">
+                <div class="slides-form__proggress__bar"></div>
+              </div>
+              <div class="slides-form__proggress__text"></div>
+            </div>
+            <label class="label h4 text-accent" for="name-logo">Название, которое должно быть отражено в&nbsp;логотипе:</label>
+            <div class="input textarea--auto-height">
+              <textarea id="name-logo" name="name-logo" placeholder="К примеру, Adidas. При создании более одной версии логотипа (несколько разноязычных версий) необходимо указать написания для всех версий, с учетом регистра и пробелов."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="why-is-name">Что означает ваше название?</label>
+            <div class="input textarea--auto-height">
+              <textarea id="why-is-name" name="why-is-name" placeholder="Название Adidas построено из имени и фамилии владельца - Адольфа Дасслера, Изначально, был бренд Dassler, им владело два брата, но к сожалению они поссорились и запретили друг другу использовать семейный бренд. Поэтому, родилось два новых Adidas и Puma."></textarea>
+            </div>
+            <label class="label h4 text-accent" for="description-prod">Описание продукта или услуги и&nbsp;преимущества</label>
+            <div class="input textarea--auto-height">
+              <textarea id="description-prod" name="description-prod" placeholder="Укажите ваш основной ряд продуктов или услуг. К примеру: спортивная одежда и обувь. Масштабное производство, более 10000 магазинов, мы занимаемся розничной, оптовой продажей, а так же создаем спортивные вещи на заказ. Следуем и создаем тренды."></textarea>
+            </div>
+            <div class="label h4 text-accent">Как давно ваш проект существует?</div>
+            <div class="text-center slides-form__btns">
+              <button class="btn btn--line btn--big-min-width slides-form__next">Далее</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="">
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-1">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-1">
-          <span>открытость и&nbsp;дружелюбность</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-2">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-2">
-          <span>солидность, респектабельность</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-3">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-3">
-          <span>союз компаний, корпоративность</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-4">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-4">
-          <span>развитие, восхождение</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-4">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-4">
-          <span>развитие, восхождение</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-4">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-4">
-          <span>развитие, восхождение</span>
-        </label>
-        <label class="checkbox-input__label checkbox-input__label--line" for="check-4">
-          <input class="checkbox-input" type="checkbox" name="life" id="check-4">
-          <span>развитие, восхождение</span>
-        </label>
-      </div>
-
-      <label class="label text-accent" for="simple-text">Название, которое должно быть отражено в&nbsp;логотипе:</label>
-      <input class="input" id="simple-text" type="text" placeholder="Просто текст">
-      <br>
-      <label class="label text-accent" for="simple-text">Название, которое должно быть отражено в&nbsp;логотипе:</label>
-      <div class="input">
-        <input type="text">
-      </div>
-      <br>
-      <label class="label text-accent h4" for="textarea">Название, которое должно быть отражено в&nbsp;логотипе:</label>
-      <div class="input">
-        <textarea name="textarea" id="textarea" placeholder="К примеру, Adidas. При создании более одной версии логотипа (несколько разноязычных версий) необходимо указать написания для всех версий, с учетом регистра и пробелов."></textarea>
-      </div>
-      <br>
-      <label class="label text-accent h4" for="textarea">Название, которое должно быть отражено в&nbsp;логотипе:</label>
-      <textarea class="input" name="textarea" id="textarea" placeholder="К примеру, Adidas. При создании более одной версии логотипа (несколько разноязычных версий) необходимо указать написания для всех версий, с учетом регистра и пробелов."></textarea>
     </form>
   </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__wrapper">
+        <div class="footer__title footer__item">
+          <h2 class="h2">Контакты</h2>
+        </div>
+        <div class="footer__item footer__info">
+          <div class="info-company">
+            <div class="info-company__wrapper">
+              <div class="info-company__item info-company__phone">
+                <img src="img/phone-call.svg" alt="phone">
+                <div class="info-company__text like-text">
+                  <a href="tel:78469900577">+7&nbsp;(846-99)&nbsp;0-05-77</a> <br>
+                  <a href="mailto:design@q-play.pro">design@q-play.pro</a>
+                </div>
+              </div>
+              <div class="info-company__item info-company__address">
+                <img src="img/map-pin.svg" alt="address">
+                <div class="info-company__text">
+                  Наш адрес: г.&nbsp;Самара, <br> ул.&nbsp;Конноармейская, 17
+                </div>
+              </div>
+              <div class="info-company__item info-company__time">
+                <img src="img/clock.svg" alt="clock">
+                <div class="info-company__text">
+                  Режим работы: <br>
+                  <div class="info-company__time__work">
+                    сейчас работаем
+                  </div>
+                  <div class="info-company__time__not-work">
+                    с&nbsp;10:00&ndash;18:00
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer__links footer__item">
+          <div class="socials-links socials-links--line socials-links--right-sm">
+            <nav class="socials-links__wrapper">
+              <a href="#" class="socials-links__item link-icon"><img src="img/vk-icon.svg" alt="vk"></a>
+              <a href="#" class="socials-links__item link-icon"><img src="img/inst-icon.svg" alt="inst"></a>
+              <a href="#" class="socials-links__item link-icon"><img src="img/be-icon.svg" alt="behance"></a>
+              <a href="#" class="socials-links__item link-icon"><img src="img/fb-icon.svg" alt="fb"></a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vendor/smooth-scroll.js"></script>
+  <script src="js/slide-form.js"></script>
   <script src="js/script.js"></script>
 </body>
 
