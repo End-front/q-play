@@ -10,13 +10,159 @@ document.addEventListener('DOMContentLoaded', function () {
   // menu
   var header = document.querySelector('.header');
   var headerMenu = header && header.querySelector('.header__menu');
+  var headerMenuMainList = headerMenu && headerMenu.querySelector('.header__menu__list');
+  var headerMenuSubList = headerMenu && headerMenu.querySelectorAll('.header__menu__sublist');
   var headerButton = header && header.querySelector('.header__button');
 
   if (headerButton && headerMenu) {
-    headerButton.addEventListener('click', function () {
-      header.classList.toggle('active-menu');
-      headerButton.classList.toggle('active');
-    });
+    (function () {
+      headerButton.addEventListener('click', function () {
+        header.classList.toggle('active-menu');
+        headerButton.classList.toggle('active');
+      });
+
+      var setMaxWidthSubMenu = function setMaxWidthSubMenu() {
+        var width = headerMenu.offsetWidth / 2 - headerMenuMainList.offsetWidth / 2 - 15;
+
+        for (var index = 0; index < headerMenuSubList.length; index++) {
+          var element = headerMenuSubList[index];
+          var parent = element.closest('li');
+
+          if (window.checkBrowser.supportsTouch) {
+            width += headerMenuMainList.offsetWidth;
+          } else {
+            width += headerMenuMainList.offsetWidth - parent.offsetWidth;
+          }
+
+          console.log(headerMenuMainList.offsetWidth - parent.offsetWidth);
+          element.style.maxWidth = width + 'px';
+        }
+      };
+
+      var setAutoHeight = function setAutoHeight(item, reverse) {
+        var submenu = item.querySelector('.header__menu__sublist');
+        var prevHeight = item.children[0].offsetHeight;
+        var newHeight = submenu && submenu.offsetHeight;
+        var differenceHeight = newHeight - prevHeight;
+        if (differenceHeight == 0) return item.style.height = prevHeight + 'px';
+
+        if (reverse) {
+          prevHeight = item.offsetHeight;
+          newHeight = item.children[0].offsetHeight;
+          differenceHeight = newHeight - prevHeight;
+        }
+
+        var start = null;
+        requestAnimFrame(function height(time) {
+          if (start === null) start = time;
+          var timeFraction = (time - start) / 350;
+
+          if (timeFraction > 1) {
+            timeFraction = 1;
+          }
+
+          var progress = Math.sin(timeFraction * Math.PI / 2); // let progress = timeFraction;
+
+          item.style.height = prevHeight + differenceHeight * progress + 'px';
+
+          if (timeFraction < 1) {
+            requestAnimationFrame(height);
+          }
+        });
+      };
+
+      var setAutoHeightClick = function setAutoHeightClick(item, reverse) {
+        var submenu = item.querySelector('.header__menu__sublist');
+        var prevHeight = item.offsetHeight;
+        var newHeight;
+
+        if (!reverse) {
+          newHeight = item.children[0].offsetHeight + submenu.offsetHeight;
+        } else {
+          newHeight = item.children[0].offsetHeight;
+        }
+
+        var differenceHeight = newHeight - prevHeight;
+        if (differenceHeight == 0) return item.style.height = prevHeight + 'px';
+        var start = null;
+        requestAnimFrame(function height(time) {
+          if (start === null) start = time;
+          var timeFraction = (time - start) / 350;
+
+          if (timeFraction > 1) {
+            timeFraction = 1;
+          }
+
+          var progress = Math.sin(timeFraction * Math.PI / 2); // let progress = timeFraction;
+
+          item.style.height = prevHeight + differenceHeight * progress + 'px';
+
+          if (timeFraction < 1) {
+            requestAnimationFrame(height);
+          }
+        });
+      };
+
+      setMaxWidthSubMenu();
+      window.addEventListener('resize', function () {
+        setMaxWidthSubMenu();
+      });
+
+      var _loop = function _loop(index) {
+        var subList = headerMenuSubList[index];
+        var parent = subList.closest('li');
+
+        if (!window.checkBrowser.supportsTouch) {
+          var mouseOut = function mouseOut(e) {
+            setAutoHeight(parent, true);
+          };
+
+          var mouseIn = function mouseIn(e) {
+            setAutoHeight(parent);
+          };
+
+          parent.addEventListener('mouseover', mouseIn, {
+            once: true
+          });
+          parent.addEventListener('mouseout', function (e) {
+            var eventItem = e.relatedTarget.closest('.header__menu__list-item');
+
+            if (eventItem && eventItem == parent) {
+              return;
+            }
+
+            mouseOut();
+            parent.addEventListener('mouseover', mouseIn, {
+              once: true
+            });
+          });
+        } else {
+          var clickIn = function clickIn(e) {
+            setAutoHeightClick(parent);
+            parent.removeEventListener('click', clickIn);
+            parent.querySelector('span').addEventListener('click', clickOut);
+            parent.classList.add('active');
+            console.log(parent.classList);
+          };
+
+          var clickOut = function clickOut(e) {
+            setAutoHeightClick(parent, true);
+            parent.querySelector('span').removeEventListener('click', clickOut);
+            setTimeout(function () {
+              parent.addEventListener('click', clickIn);
+            }, 0);
+            parent.classList.remove('active');
+            console.log(parent.classList);
+          };
+
+          parent.addEventListener('click', clickIn);
+        }
+      };
+
+      for (var index = 0; index < headerMenuSubList.length; index++) {
+        _loop(index);
+      }
+    })();
   } //courser
 
 

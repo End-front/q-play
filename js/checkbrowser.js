@@ -6,6 +6,8 @@ window.checkBrowser.isIE = !!(window.navigator.userAgent.indexOf('MSIE ') > -1 |
 
 if (window.checkBrowser.supportsTouch) {
   document.documentElement.classList.add('touch-browser');
+} else {
+  document.documentElement.classList.add('courser-browser');
 }
 
 if (window.checkBrowser.isIE) {
