@@ -939,6 +939,16 @@ mark, .text-accent {
   display: none;
 }
 
+.touch-browser .grid-works__item::after {
+  opacity: 1;
+}
+
+.touch-browser .grid-works__inner {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  opacity: 1;
+}
+
 .info-company__wrapper {
   margin: -15px -20px;
   display: -webkit-inline-box;
