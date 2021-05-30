@@ -68,7 +68,7 @@ function smoothScrollToCoords(block, option) {
       window.scrollTo(0, curentScroll + (distanse + differenceScroll)* progress);
       
       if (timeFraction < 1) {
-        requestAnimationFrame(scroll);
+        requestAnimFrame(scroll);
       }
     })
   } else {

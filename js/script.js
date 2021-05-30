@@ -6,6 +6,18 @@ window.requestAnimFrame = function () {
   };
 }();
 
+ibg();
+
+function ibg() {
+  var ibg = document.querySelectorAll(".ibg");
+
+  for (var i = 0; i < ibg.length; i++) {
+    if (ibg[i].querySelector('.ibg__img, img')) {
+      ibg[i].style.backgroundImage = 'url(' + ibg[i].querySelector('.ibg__img, img').getAttribute('src') + ')';
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   // menu
   var header = document.querySelector('.header');
@@ -19,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
       headerButton.addEventListener('click', function () {
         header.classList.toggle('active-menu');
         headerButton.classList.toggle('active');
+        document.documentElement.classList.toggle('scroll-hidden');
       });
 
       var setMaxWidthSubMenu = function setMaxWidthSubMenu() {
@@ -34,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
             width += headerMenuMainList.offsetWidth - parent.offsetWidth;
           }
 
-          console.log(headerMenuMainList.offsetWidth - parent.offsetWidth);
           element.style.maxWidth = width + 'px';
         }
       };
@@ -66,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
           item.style.height = prevHeight + differenceHeight * progress + 'px';
 
           if (timeFraction < 1) {
-            requestAnimationFrame(height);
+            requestAnimFrame(height);
           }
         });
       };
@@ -98,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
           item.style.height = prevHeight + differenceHeight * progress + 'px';
 
           if (timeFraction < 1) {
-            requestAnimationFrame(height);
+            requestAnimFrame(height);
           }
         });
       };
@@ -200,14 +212,50 @@ document.addEventListener('DOMContentLoaded', function () {
     document.documentElement.addEventListener('mouseout', function () {
       courser.classList.remove('visible');
     });
+  } //works
+
+
+  var works = document.querySelectorAll('.grid-works');
+
+  if (works) {
+    var _loop2 = function _loop2(index) {
+      var gridWork = works[index];
+      var gridWorkWrapper = gridWork.querySelector('.grid-works__wrapper');
+      var gridWorkItem = gridWorkWrapper && gridWorkWrapper.querySelectorAll('.grid-works__item');
+
+      if (gridWorkItem) {
+        var lagreDesc = function lagreDesc() {
+          var maxItem = Math.floor(gridWorkWrapper.clientWidth / 400);
+          var maxWidth;
+
+          if (document.documentElement.clientWidth > 1920) {
+            maxWidth = gridWorkWrapper.clientWidth / maxItem + 'px';
+          } else {
+            maxWidth = 'none';
+          }
+
+          for (var _index = 0; _index < gridWorkItem.length; _index++) {
+            var element = gridWorkItem[_index];
+            element.style.maxWidth = maxWidth;
+          }
+        };
+
+        lagreDesc();
+        window.addEventListener('resize', lagreDesc);
+      }
+    };
+
+    for (var index = 0; index < works.length; index++) {
+      _loop2(index);
+    }
   } // checkbox and radio
 
 
   var checkAndRadioInput = document.querySelectorAll('.checkbox-input, .radio-input');
 
   if (checkAndRadioInput) {
-    for (var index = 0; index < checkAndRadioInput.length; index++) {
-      var element = checkAndRadioInput[index];
+    for (var _index2 = 0; _index2 < checkAndRadioInput.length; _index2++) {
+      var element = checkAndRadioInput[_index2];
       var child = element.parentElement.querySelector('.checkbox-input__check, .radio-input__check');
 
       if (!child) {
@@ -222,8 +270,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var textareaAuto = document.querySelectorAll('.textarea--auto-height');
 
   if (textareaAuto) {
-    for (var _index = 0; _index < textareaAuto.length; _index++) {
-      var _element = textareaAuto[_index];
+    for (var _index3 = 0; _index3 < textareaAuto.length; _index3++) {
+      var _element = textareaAuto[_index3];
 
       var textarea = _element.querySelector('textarea');
 
@@ -283,8 +331,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (infoCompanyTime) {
-    for (var _index2 = 0; _index2 < infoCompanyTime.length; _index2++) {
-      var _element2 = infoCompanyTime[_index2];
+    for (var _index4 = 0; _index4 < infoCompanyTime.length; _index4++) {
+      var _element2 = infoCompanyTime[_index4];
       _element2.innerText = 'с ' + workHourseStart + ':' + workMinutes + '-' + workHourseEnd + ":" + workMinutes;
 
       if (isNotWork) {

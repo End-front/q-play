@@ -177,7 +177,7 @@ if (slideForm) {
           formSlideObject.formOuter.style.height = prevHeight + differenceHeight * progress + 'px';
 
           if (timeFraction < 1) {
-            requestAnimationFrame(scroll);
+            requestAnimFrame(scroll);
           }
         });
       };
