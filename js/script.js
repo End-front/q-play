@@ -222,13 +222,17 @@ document.addEventListener('DOMContentLoaded', function () {
       var gridWork = works[index];
       var gridWorkWrapper = gridWork.querySelector('.grid-works__wrapper');
       var gridWorkItem = gridWorkWrapper && gridWorkWrapper.querySelectorAll('.grid-works__item');
+      var gridWorkNav = gridWork.querySelector('.grid-works__nav');
+      var gridWorkNavWrapper = gridWorkNav && gridWorkNav.querySelector('.grid-works__nav__wrapper');
+      var gridWorkNavItem = gridWorkNav && gridWorkNav.querySelectorAll('.grid-works__nav__item');
+      var isotopeGridWorkWrapper = void 0;
 
       if (gridWorkItem) {
         var lagreDesc = function lagreDesc() {
           var maxItem = Math.floor(gridWorkWrapper.clientWidth / 400);
           var maxWidth;
 
-          if (document.documentElement.clientWidth > 1920) {
+          if (window.innerWidth >= 1920) {
             maxWidth = gridWorkWrapper.clientWidth / maxItem + 'px';
           } else {
             maxWidth = 'none';
@@ -237,11 +241,85 @@ document.addEventListener('DOMContentLoaded', function () {
           for (var _index = 0; _index < gridWorkItem.length; _index++) {
             var element = gridWorkItem[_index];
             element.style.maxWidth = maxWidth;
+            element.style.width = maxWidth == 'none' ? '' : maxWidth;
           }
         };
 
+        var maxWidthItem = function maxWidthItem(num, stringClass) {
+          for (var _index2 = 0; _index2 < gridWorkItem.length; _index2++) {
+            var element = gridWorkItem[_index2];
+
+            if (!stringClass && _index2 >= num) {
+              element.style.display = 'none';
+            }
+          }
+        };
+
+        maxWidthItem(8);
         lagreDesc();
         window.addEventListener('resize', lagreDesc);
+
+        if (gridWorkNavItem) {
+          var percentPosition = true;
+
+          if (window.innerWidth >= 1920) {
+            percentPosition = false;
+          }
+
+          isotopeGridWorkWrapper = new Isotope(gridWorkWrapper, {
+            itemSelector: '.grid-works__item',
+            percentPosition: percentPosition
+          });
+
+          for (var _index3 = 0; _index3 < gridWorkNavItem.length; _index3++) {
+            var button = gridWorkNavItem[_index3];
+            button.addEventListener('click', function () {
+              var thisAttrFilter = this.getAttribute('data-filter');
+
+              if (this.classList.contains('active')) {
+                thisAttrFilter = '*';
+              }
+
+              for (var _index4 = 0; _index4 < gridWorkNavItem.length; _index4++) {
+                if (gridWorkNavItem[_index4] != this) {
+                  gridWorkNavItem[_index4].classList.remove('active');
+                }
+              }
+
+              this.classList.toggle('active');
+
+              if (thisAttrFilter) {
+                isotopeGridWorkWrapper.arrange({
+                  filter: thisAttrFilter
+                });
+              }
+            });
+          }
+
+          isotopeGridWorkWrapper.layout();
+          isotopeGridWorkWrapper.on('layoutComplete', lagreDesc);
+        }
+      }
+
+      if (gridWorkNavWrapper && gridWorkNavItem) {
+        var widthNavWrapper = function widthNavWrapper() {
+          var widthNav = gridWorkNav.clientWidth - 30;
+          var widthContent = -30;
+          var maxItemIn = 0;
+
+          for (var _index5 = 0; _index5 < gridWorkNavItem.length; _index5++) {
+            var _button = gridWorkNavItem[_index5];
+            widthContent += _button.clientWidth + 110;
+          }
+
+          if (widthNav > widthContent) {
+            gridWorkNavWrapper.style.width = widthContent + 'px';
+          } else {
+            gridWorkNavWrapper.style.width = 'auto';
+          }
+        }; // widthNavWrapper();
+        // window.addEventListener('resize', widthNavWrapper);
+
       }
     };
 
@@ -254,8 +332,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var checkAndRadioInput = document.querySelectorAll('.checkbox-input, .radio-input');
 
   if (checkAndRadioInput) {
-    for (var _index2 = 0; _index2 < checkAndRadioInput.length; _index2++) {
-      var element = checkAndRadioInput[_index2];
+    for (var _index6 = 0; _index6 < checkAndRadioInput.length; _index6++) {
+      var element = checkAndRadioInput[_index6];
       var child = element.parentElement.querySelector('.checkbox-input__check, .radio-input__check');
 
       if (!child) {
@@ -270,8 +348,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var textareaAuto = document.querySelectorAll('.textarea--auto-height');
 
   if (textareaAuto) {
-    for (var _index3 = 0; _index3 < textareaAuto.length; _index3++) {
-      var _element = textareaAuto[_index3];
+    for (var _index7 = 0; _index7 < textareaAuto.length; _index7++) {
+      var _element = textareaAuto[_index7];
 
       var textarea = _element.querySelector('textarea');
 
@@ -331,8 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (infoCompanyTime) {
-    for (var _index4 = 0; _index4 < infoCompanyTime.length; _index4++) {
-      var _element2 = infoCompanyTime[_index4];
+    for (var _index8 = 0; _index8 < infoCompanyTime.length; _index8++) {
+      var _element2 = infoCompanyTime[_index8];
       _element2.innerText = 'с ' + workHourseStart + ':' + workMinutes + '-' + workHourseEnd + ":" + workMinutes;
 
       if (isNotWork) {
