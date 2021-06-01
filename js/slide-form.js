@@ -54,7 +54,7 @@ if (slideForm) {
         if (formSlideObject.activeSlide) formSlideObject.activeSlide.classList.remove('active');
         formSlideObject.slides[index].classList.add('active');
         formSlideObject.activeSlide = formSlideObject.slides[index];
-        formSlideObject.autoHeight(opt.duration !== undefined ? opt.duration : 400);
+        formSlideObject.autoHeight(opt.duration !== undefined ? opt.duration : 600);
       };
 
       formSlideObject.setWidthSlides = function (items) {
@@ -152,7 +152,7 @@ if (slideForm) {
       };
 
       formSlideObject.autoHeight = function (duration) {
-        if (typeof duration != 'number') duration = 400;
+        if (typeof duration != 'number') duration = 600;
         if (!formSlideObject.activeSlide) formSlideObject.toggleActiveSlide();
         var prevHeight = formSlideObject.formOuter.clientHeight;
         var newHeight = formSlideObject.activeSlide.clientHeight;
@@ -188,7 +188,7 @@ if (slideForm) {
         formSlideObject.toggleActiveSlide(index);
         smoothScrollToCoords(document.documentElement, {
           listenChange: false,
-          duration: 400
+          duration: 600
         });
       };
 

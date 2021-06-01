@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
             parent.removeEventListener('click', clickIn);
             parent.querySelector('span').addEventListener('click', clickOut);
             parent.classList.add('active');
-            console.log(parent.classList);
           };
 
           var clickOut = function clickOut(e) {
@@ -164,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
               parent.addEventListener('click', clickIn);
             }, 0);
             parent.classList.remove('active');
-            console.log(parent.classList);
           };
 
           parent.addEventListener('click', clickIn);
@@ -221,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var _loop2 = function _loop2(index) {
       var gridWork = works[index];
       var gridWorkWrapper = gridWork.querySelector('.grid-works__wrapper');
+      var gridWorkSlides = gridWorkWrapper && gridWorkWrapper.querySelectorAll('.grid-works__slide');
       var gridWorkItem = gridWorkWrapper && gridWorkWrapper.querySelectorAll('.grid-works__item');
       var gridWorkNav = gridWork.querySelector('.grid-works__nav');
       var gridWorkNavWrapper = gridWorkNav && gridWorkNav.querySelector('.grid-works__nav__wrapper');
@@ -240,8 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           for (var _index = 0; _index < gridWorkItem.length; _index++) {
             var element = gridWorkItem[_index];
-            element.style.maxWidth = maxWidth;
-            element.style.width = maxWidth == 'none' ? '' : maxWidth;
+            element.style.maxWidth = maxWidth; // element.style.width = maxWidth == 'none' ? '' : maxWidth;
           }
         };
 
@@ -253,13 +251,13 @@ document.addEventListener('DOMContentLoaded', function () {
               element.style.display = 'none';
             }
           }
-        };
+        }; // maxWidthItem(8)
 
-        maxWidthItem(8);
+
         lagreDesc();
         window.addEventListener('resize', lagreDesc);
 
-        if (gridWorkNavItem) {
+        if (gridWorkNavItem && false) {
           var percentPosition = true;
 
           if (window.innerWidth >= 1920) {
@@ -268,12 +266,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
           isotopeGridWorkWrapper = new Isotope(gridWorkWrapper, {
             itemSelector: '.grid-works__item',
-            percentPosition: percentPosition
+            percentPosition: percentPosition,
+            transitionDuration: 400,
+            hiddenStyle: {
+              opacity: 0
+            },
+            visibleStyle: {
+              opacity: 1
+            }
           });
 
           for (var _index3 = 0; _index3 < gridWorkNavItem.length; _index3++) {
             var button = gridWorkNavItem[_index3];
             button.addEventListener('click', function () {
+              gridWorkWrapper.classList.add('filtered');
               var thisAttrFilter = this.getAttribute('data-filter');
 
               if (this.classList.contains('active')) {
@@ -292,13 +298,86 @@ document.addEventListener('DOMContentLoaded', function () {
                 isotopeGridWorkWrapper.arrange({
                   filter: thisAttrFilter
                 });
+                setTimeout(function () {
+                  gridWorkWrapper.classList.remove('filtered');
+                }, 500);
               }
             });
           }
 
           isotopeGridWorkWrapper.layout();
-          isotopeGridWorkWrapper.on('layoutComplete', lagreDesc);
+          isotopeGridWorkWrapper.on('layoutComplete', function () {
+            lagreDesc();
+          });
         }
+      }
+
+      if (gridWorkSlides && gridWorkNavItem) {
+        (function () {
+          var allSlideItem = 0;
+          var mainAllSlide;
+          var activeSlide;
+
+          var autoheight = function autoheight(slide) {
+            gridWorkWrapper.style.height = slide.clientHeight + "px";
+          };
+
+          var _loop3 = function _loop3(_index5) {
+            var button = gridWorkNavItem[_index5 - allSlideItem];
+            var slide = gridWorkSlides[_index5];
+
+            if (slide && button) {
+              if (slide.getAttribute('data-slide') == 'all') {
+                allSlideItem++;
+                mainAllSlide = slide;
+                autoheight(mainAllSlide);
+                mainAllSlide.classList.add('active');
+                return "continue";
+              }
+
+              button.addEventListener('click', function () {
+                for (var _index6 = 0; _index6 < gridWorkNavItem.length; _index6++) {
+                  if (gridWorkNavItem[_index6] != this) {
+                    gridWorkNavItem[_index6].classList.remove('active');
+                  }
+                }
+
+                for (var _index7 = 0; _index7 < gridWorkSlides.length; _index7++) {
+                  if (gridWorkSlides[_index7] != slide) {
+                    gridWorkSlides[_index7].classList.remove('active');
+                  }
+                }
+
+                if (slide.classList.contains('active')) {
+                  slide.classList.remove('active');
+                  mainAllSlide && mainAllSlide.classList.add('active');
+                  activeSlide = mainAllSlide;
+                  autoheight(mainAllSlide);
+                } else {
+                  slide.classList.add('active');
+                  activeSlide = slide;
+                  autoheight(slide);
+                }
+
+                this.classList.toggle('active');
+              });
+            }
+          };
+
+          for (var _index5 = 0; _index5 <= gridWorkNavItem.length; _index5++) {
+            var _ret = _loop3(_index5);
+
+            if (_ret === "continue") continue;
+          }
+
+          if (activeSlide || mainAllSlide) {
+            window.addEventListener('resize', function () {
+              autoheight(activeSlide || mainAllSlide);
+            });
+          }
+
+          gridWork.classList.add('loaded-slider');
+        })();
       }
 
       if (gridWorkNavWrapper && gridWorkNavItem) {
@@ -307,8 +386,8 @@ document.addEventListener('DOMContentLoaded', function () {
           var widthContent = -30;
           var maxItemIn = 0;
 
-          for (var _index5 = 0; _index5 < gridWorkNavItem.length; _index5++) {
-            var _button = gridWorkNavItem[_index5];
+          for (var _index8 = 0; _index8 < gridWorkNavItem.length; _index8++) {
+            var _button = gridWorkNavItem[_index8];
             widthContent += _button.clientWidth + 110;
           }
 
@@ -332,8 +411,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var checkAndRadioInput = document.querySelectorAll('.checkbox-input, .radio-input');
 
   if (checkAndRadioInput) {
-    for (var _index6 = 0; _index6 < checkAndRadioInput.length; _index6++) {
-      var element = checkAndRadioInput[_index6];
+    for (var _index9 = 0; _index9 < checkAndRadioInput.length; _index9++) {
+      var element = checkAndRadioInput[_index9];
       var child = element.parentElement.querySelector('.checkbox-input__check, .radio-input__check');
 
       if (!child) {
@@ -348,8 +427,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var textareaAuto = document.querySelectorAll('.textarea--auto-height');
 
   if (textareaAuto) {
-    for (var _index7 = 0; _index7 < textareaAuto.length; _index7++) {
-      var _element = textareaAuto[_index7];
+    for (var _index10 = 0; _index10 < textareaAuto.length; _index10++) {
+      var _element = textareaAuto[_index10];
 
       var textarea = _element.querySelector('textarea');
 
@@ -409,8 +488,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (infoCompanyTime) {
-    for (var _index8 = 0; _index8 < infoCompanyTime.length; _index8++) {
-      var _element2 = infoCompanyTime[_index8];
+    for (var _index11 = 0; _index11 < infoCompanyTime.length; _index11++) {
+      var _element2 = infoCompanyTime[_index11];
       _element2.innerText = 'с ' + workHourseStart + ':' + workMinutes + '-' + workHourseEnd + ":" + workMinutes;
 
       if (isNotWork) {
