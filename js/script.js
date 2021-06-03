@@ -521,14 +521,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var Pixel = function Pixel(x, y) {
       this.x = x;
-      this.y = y;
-      this.hue = Math.floor(Math.random() * 360);
+      this.y = y; // this.hue = Math.floor( Math.random() * 360 );
+
+      this.hue = 200 - Math.floor(Math.random() * 180);
       var direction = Math.random() > 0.5 ? -1 : 1;
-      this.velocity = (Math.random() * 30 + 20) * 0.01 * direction;
+      this.velocity = (Math.random() * 30 + 20) * 0.01 * direction; // this.velocity = 0;
     };
 
     Pixel.prototype.update = function () {
       this.hue += this.velocity;
+
+      if (this.hue >= 200 || this.hue <= 20) {
+        this.velocity *= -1;
+      }
     };
 
     Pixel.prototype.render = function (ctx) {
